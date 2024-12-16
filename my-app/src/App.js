@@ -55,10 +55,10 @@ function App() {
 
  <div className='mt-5'>    
 <div className='bg-light'>
-<div id="carouselExample" class="carousel slide">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-    <img src="https://static.vecteezy.com/system/resources/previews/004/759/229/non_2x/super-big-sale-background-free-vector.jpg" class="d-block w-100" onClick={()=>navigate('/products')} style={{height:'500px', width:'1250px'}} alt="..."/>  <div class="carousel-caption d-none d-md-block">
+<div id="carouselExample" className="carousel slide">
+  <div className="carousel-inner">
+    <div className="carousel-item active">
+    <img src="https://static.vecteezy.com/system/resources/previews/004/759/229/non_2x/super-big-sale-background-free-vector.jpg" className="d-block w-100 img-fluid" onClick={()=>navigate('/products')} style={{height:'550px', width:'1250px'}} alt="..."/>  <div className="carousel-caption d-none d-md-block">
       
         <h3>BUY 1 GET 1 FREE</h3>
         <p>Gen Young Fashion from Rs.249 + Extra discount + Free delivery</p>
@@ -66,21 +66,21 @@ function App() {
 
       
     </div>
-    <div class="carousel-item">
-    <img src="https://assets-global.website-files.com/6523ed2d670117e5922bd1d3/6569c51a8f5de07a8689b3cc_655222fa52c3b2554888c9a6_Retail-Software-Development.jpeg" class="d-block w-100" onClick={()=>navigate('/products')} style={{height:'500px', width:'1250px'}} alt="..."/>
+    <div className="carousel-item">
+    <img src="https://assets-global.website-files.com/6523ed2d670117e5922bd1d3/6569c51a8f5de07a8689b3cc_655222fa52c3b2554888c9a6_Retail-Software-Development.jpeg" className="d-block w-100 img-fluid" onClick={()=>navigate('/products')} style={{height:'550px', width:'1250px'}} alt="..."/>
       
     </div>
-    <div class="carousel-item">
-    <img src="https://explainerd.com/wp-content/uploads/2022/08/Ecommerce-Product-Videos-The-Definitive-Guide.jpg" class="d-block w-100" onClick={()=>navigate('/products')} style={{height:'500px', width:'1250px'}} alt="..."/>
+    <div className="carousel-item">
+    <img src="https://explainerd.com/wp-content/uploads/2022/08/Ecommerce-Product-Videos-The-Definitive-Guide.jpg" className="d-block w-100 img-fluid" onClick={()=>navigate('/products')} style={{height:'550px', width:'1250px'}} alt="..."/>
     </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
+  <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span className="visually-hidden">Previous</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
+  <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+    <span className="visually-hidden">Next</span>
   </button>
 </div>
 </div>

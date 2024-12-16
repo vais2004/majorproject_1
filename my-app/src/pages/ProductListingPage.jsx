@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
@@ -63,7 +64,7 @@ export default function ProductListingPage(){
         {   
             id:8,
             title:"Denim Skirt",
-            imgUrl:'https://i5.walmartimages.com/asr/e6bb3187-70f9-4ad8-bac8-d9c5fe8d2f33.79e50d5d3f45ebe5e002dcaceff0037f.jpeg',
+            imgUrl:'https://i.pinimg.com/originals/2c/cc/92/2ccc92081e2263c00c1aabbabdd73bc3.jpg',
             category:'Women',
             price:'460',
             rating:'4.2'
@@ -71,7 +72,7 @@ export default function ProductListingPage(){
         {
             id:9,
             title:"Dungaree",
-            imgUrl:'https://i1.adis.ws/i/truworths/prod4352970_1',
+            imgUrl:'https://i.pinimg.com/736x/5f/0e/bc/5f0ebcdf99886de36b16461b6c6e17d8.jpg',
             category:'Kids',
             price:'450',
             rating:'4.2'
@@ -79,38 +80,65 @@ export default function ProductListingPage(){
         {
             id:10,
             title:"Frock",
-            imgUrl:'https://down-ph.img.susercontent.com/file/cn-11134301-7qukw-lkhwu2szsp86dc',
+            imgUrl:'https://i.pinimg.com/736x/6e/08/0c/6e080c8c10752f3a976845f928bece80.jpg',
             category:'Kids',
             price:'500',
             rating:'4.2'
         },
         {
             id:11,
-            title:"Frock",
-            imgUrl:'https://i5.walmartimages.com/asr/69f2117f-40f9-44f1-b955-f2d619bc91d6_1.600f8a818eec9892c81da1a16cd0f4a3.jpeg',
+            title:"Snowsuit",
+            imgUrl:'https://i.pinimg.com/736x/90/ef/d6/90efd6925756d3cee101a449c784a906.jpg',
             category:'Kids',
             price:'550',
             rating:'4.2'
         },
         {
             id:12,
-            title:"Frock",
-            imgUrl:'https://i5.walmartimages.com/asr/7ded5434-24a8-4a87-a0d6-8fb07a119579_1.923f9577dbff3f985eb6d8292610fc66.jpeg',
+            title:"Babysuit",
+            imgUrl:'https://i.pinimg.com/736x/ae/8d/79/ae8d791a4be0d4831f394f2a8325f2a6.jpg',
             category:'Kids',
             price:'400',
             rating:'4.2'
         },
     ]
+
+    const [filters,setFilters]=useState({
+        priceRange:550,
+        categories:[],
+        rating:0,
+        sortBy:''
+    })
+
+    const [selectedCategory, setSelectedCategory]=useState([])
+    const [selectRating,setSelectedRating]=useState(null)
+
+    const filteredOutfits=outfits.filter((outfit)=>{
+       const matchesCategory = selectedCategory.length===0|| selectedCategory.includes(outfit.category)
+       const matchesRating = selectRating === null || outfit.rating >= selectRating;
+
+       return matchesCategory && matchesRating
+    })
+
+    const handleCategoryChange=(e)=>{
+        const {value,checked}=e.target;
+        setSelectedCategory((prev)=> checked? [...prev, value]: prev.filter((category)=> category !== value))
+    }
+
+    const handleRatingChange = (e) => {
+        setSelectedRating(parseFloat(e.target.value));
+      };
+      
+
     return(
         <>
         <Header/>
-        <main className="container py-3">
-<div className="row">
-    <div className="col-md-3">
-        
+        <main className="container-fluid py-3">
+    <div className="row">
+      <div className="col-md-3">  
     <div className="d-flex justify-content-between">
         <h5>Filters</h5>
-        <button className="btn btn-outline-warning">Clear Filters</button>
+        <button className="btn btn-outline-warning" onClick={()=>{setSelectedCategory([]); setSelectedRating(null);}}>Clear Filters</button>
         </div>
         <br/>
         <br/>
@@ -121,8 +149,8 @@ export default function ProductListingPage(){
         <span>350</span>
         <span>450</span>
         <span>550</span>
-      </div>
-      <input
+    </div>
+    <input
         type="range"
         className="form-range"
         id="priceSlider"
@@ -130,34 +158,35 @@ export default function ProductListingPage(){
         max="550"
         step="100"
         
-      /> 
+    /> 
         <br/>
         <br/>
-        <h5>Category</h5>
+
+    <h5>Category</h5>
         <label for='men'>
-            <input type="checkbox" name='category' value='Men' id='men'/>{' '}Men Clothing
+            <input type="checkbox" name='category' value='Men' id='men' onChange={handleCategoryChange} checked={selectedCategory.includes("Men")}/>{' '}Men Clothing
         </label>
         <br/>
         <label for='women'>
-            <input type="checkbox" name='category' value='Women' id='women'/>{' '}Women Clothing
+            <input type="checkbox" name='category' value='Women' id='women' onChange={handleCategoryChange} checked={selectedCategory.includes("Women")}/>{' '}Women Clothing
         </label>
         <br/>
         <label for='kids'>
-            <input type="checkbox" name='category' value='Kids' id='kids'/>{' '}Kids Clothing
+            <input type="checkbox" name='category' value='Kids' id='kids' onChange={handleCategoryChange} checked={selectedCategory.includes("Kids")}/>{' '}Kids Clothing
         </label>
         <br/>
         <br/>
-        <h5>Rating</h5>
-        <label for="4Stars"><input type="radio" name="rating" value="4 Stars & above" id="4Stars" /> 4 Star & above</label>
+    <h5>Rating</h5>
+        <label for="4Stars"><input type="radio" name="rating" value="4" id="4Stars" onChange={handleRatingChange} /> 4 Star & above</label>
         <br/>
-        <label for="3Stars"><input type="radio" name="rating" value="3 Stars & above" id="3Stars" /> 3 Star & above</label>
+        <label for="3Stars"><input type="radio" name="rating" value="3" id="3Stars" onChange={handleRatingChange} /> 3 Star & above</label>
         <br/>
-        <label for="2Stars"><input type="radio" name="rating" value="2 Stars & above" id="2Stars" /> 2 Star & above</label>
+        <label for="2Stars"><input type="radio" name="rating" value="2" id="2Stars" onChange={handleRatingChange} /> 2 Star & above</label>
         <br/>
-        <label for="1Stars"><input type="radio" name="rating" value="1 Stars & above" id="1Stars" /> 1 Star & above</label>
+        <label for="1Stars"><input type="radio" name="rating" value="1" id="1Stars" onChange={handleRatingChange} /> 1 Star & above</label>
         <br/>
         <br/>
-        <h5>Sort by</h5>
+    <h5>Sort by</h5>
         <label for="lowToHigh"><input type="radio" name="sortBy" value="Price-Low To High" id="lowToHigh" /> Price-Low To High
         </label>
         <br/>
@@ -169,15 +198,15 @@ export default function ProductListingPage(){
     <div className="col-md-9 bg-light py-4 px-4" >
    
   
-        <h5>Showing All Products  <small><span> <small>(Showing {outfits.length} products) </small></span></small></h5>
+    <h5>Showing All Products  <small><span> <small>(Showing {filteredOutfits.length} products) </small></span></small></h5>
        
         <hr/>
         
         <div className="row">
-            {outfits.map((outfit,index)=>(
+            {filteredOutfits.map((outfit,index)=>(
                 <div className="col-md-3 mb-1">
                     <div className="card text-center">
-      <img src={outfit.imgUrl} className="card-img-top" alt={outfit.title} style={{height:'250px',width:'200px'}}/>
+      <img src={outfit.imgUrl} className="card-img-top" alt={outfit.title} style={{height:'275px',width:'250px'}}/>
       
       <div className="card-body">
       <hr/>
@@ -192,18 +221,16 @@ export default function ProductListingPage(){
         <div className="d-grid gap-2 ">
             <button className="btn btn-outline-primary" type="button">Add to Cart</button>
             <button className="btn btn-outline-secondary" type="button">Remove from Cart</button>
+           </div>
+          </div>
+         </div>
         </div>
-        </div>
-        </div>
+       ))}
       </div>
-   
-            ))}
-  </div>
- </div>
-</div>
-
-        </main>
-        <Footer/>
-        </>
-    )
+     </div>
+    </div>
+   </main>
+  <Footer/>
+ </>
+ )
 }
