@@ -63,7 +63,7 @@ import React from "react";
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light px-4">
-      <a className="navbar-brand" href="#">
+      <a className="navbar-brand" href="/">
         MyShoppingSite
       </a>
       <form className="form-inline my-2 my-lg-0 mx-auto">
