@@ -20,32 +20,35 @@ function App() {
           <div className="row justify-content-center">
             <div className="col-md-4 d-flex justify-content-center mb-3 ">
               <div className='bg-light'>
-            <div><span className="badge text-bg-secondary px-2 py-2 fs-5">Men</span></div>
+            
               <img
                 src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/male3-256.png"
                 alt="mens"
-                style={{ width: "200px", height: "200px" }}
+                style={{ width: "150px", height: "150px" }}
               />
+              <div><span className="badge text-bg-secondary px-2 py-2 fs-6 d-grid gap-2 mt-2">Men</span></div>
               </div>
             </div>
             <div className="col-md-4 d-flex justify-content-center mb-3">
             <div className='bg-light'>
-            <div><span className="badge text-bg-secondary px-2 py-2 fs-5">Women</span></div>
+            
             <img
                 src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-256.png"
                 alt="womens"
-                style={{ width: "200px", height: "200px" }}
+                style={{ width: "150px", height: "150px" }}
               />
+              <div><span className="badge text-bg-secondary px-2 py-2 fs-6 d-grid gap-2 mt-2">Women</span></div>
             </div>
             </div>
             <div className="col-md-4 d-flex justify-content-center mb-3">
             <div className='bg-light'>
-            <div><span className="badge text-bg-secondary px-2 py-2 fs-5">Kids</span></div>
+            
                <img
                 src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/girl-512.png"
                 alt="kids"
-                style={{ width: "200px", height: "200px" }}
+                style={{ width: "150px", height: "150px" }}
               />
+              <div><span className="badge text-bg-secondary px-2 py-2 fs-6 d-grid gap-2 mt-2">Kids</span></div>
             </div>
             </div>
           </div>
