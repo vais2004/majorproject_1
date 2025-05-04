@@ -60,7 +60,7 @@ const Navbar = () => {
               Wishlist <i className="bi bi-heart"></i>
             </Link>
           
-            <Link to="/" className="nav-link px-3">
+            <Link to="/cart" className="nav-link px-3">
               Cart <i className="bi bi-cart4"></i>
             </Link>
 

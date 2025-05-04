@@ -10,8 +10,9 @@ import { useNavigate } from 'react-router-dom';
 function App() {
 
   const categories = ["Men", "Women", "Kids"];
+  const navigate=useNavigate()
 
-  const navigate= useNavigate()
+  
   return (
     <>
       <Header />
@@ -25,6 +26,7 @@ function App() {
                 src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/male3-256.png"
                 alt="mens"
                 style={{ width: "150px", height: "150px" }}
+                onClick={()=>navigate('/outfits?category=Men')}
               />
               <div><span className="badge text-bg-secondary px-2 py-2 fs-6 d-grid gap-2 mt-2">Men</span></div>
               </div>
@@ -36,6 +38,7 @@ function App() {
                 src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-256.png"
                 alt="womens"
                 style={{ width: "150px", height: "150px" }}
+                onClick={()=>navigate('/outfits?category=Women')}
               />
               <div><span className="badge text-bg-secondary px-2 py-2 fs-6 d-grid gap-2 mt-2">Women</span></div>
             </div>
@@ -47,6 +50,7 @@ function App() {
                 src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/girl-512.png"
                 alt="kids"
                 style={{ width: "150px", height: "150px" }}
+                onClick={()=>navigate('/outfits?category=Kids')}
               />
               <div><span className="badge text-bg-secondary px-2 py-2 fs-6 d-grid gap-2 mt-2">Kids</span></div>
             </div>
