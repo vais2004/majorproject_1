@@ -8,63 +8,38 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToCart, removeFromCart } from "../features/cartReducer";
 import { addToWishlist, removeFromWishlist } from "../features/wishlistReducer";
-//import { handleAddToWishlist,handleToggleCart } from "./ButtonAction";
 
-export default function ProductListingPage() {
+export default function ProductByCategory() {
   const navigate = useNavigate();
 
-  //const [outfits, setOutfits] = useState([]);
-  const { outfitId } = useParams();
-
-  // useEffect(() => {
-  //   const fetchOutfits = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "https://mystylespot-backend.onrender.com/outfit"
-  //       );
-  //       console.log("data", response.data);
-  //       setOutfits(response.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchOutfits();
-  // }, []);
+  const { category } = useParams();
 
   const {
-    data: outfits,
+    data: outfits = [],
     loading,
     error,
-  } = useFetch("https://mystylespot-backend.onrender.com/outfit", []);
+  } = useFetch(
+    `https://mystylespot-backend.onrender.com/outfit/category/${category}`,
+    []
+  );
 
   const [filters, setFilters] = useState({
     priceRange: 550,
-    categories: [],
+
     rating: null,
     sortBy: "",
   });
 
-  //for search
-  const searchText = useSelector((state) => state.search.text.toLowerCase());
-
-  const [selectedCategory, setSelectedCategory] = useState([]);
+  //const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectRating, setSelectedRating] = useState(null);
   const [priceRange, setPriceRange] = useState(550);
   const [sortBy, setSortBy] = useState("");
 
   let filteredOutfits = outfits.filter((outfit) => {
-    const matchesCategory =
-      selectedCategory.length === 0 ||
-      selectedCategory.includes(outfit.category);
     const matchesRating =
       selectRating === null || outfit.rating >= selectRating;
     const matchesPrice = outfit.price <= priceRange;
-    const matchesSearch =
-      searchText === "" ||
-      outfit.title.toLowerCase().includes(searchText) ||
-      outfit.category.toLowerCase().includes(searchText);
-
-    return matchesCategory && matchesRating && matchesPrice && matchesSearch;
+    return matchesRating && matchesPrice;
   });
 
   if (sortBy === "Price-Low To High") {
@@ -72,13 +47,6 @@ export default function ProductListingPage() {
   } else if (sortBy === "Price-High To Low") {
     filteredOutfits = filteredOutfits.sort((a, b) => b.price - a.price);
   }
-
-  const handleCategoryChange = (e) => {
-    const { value, checked } = e.target;
-    setSelectedCategory((prev) =>
-      checked ? [...prev, value] : prev.filter((category) => category !== value)
-    );
-  };
 
   const handleRatingChange = (e) => {
     setSelectedRating(parseFloat(e.target.value));
@@ -132,7 +100,6 @@ export default function ProductListingPage() {
                 <button
                   className="btn btn-outline-warning"
                   onClick={() => {
-                    setSelectedCategory([]);
                     setSelectedRating(null);
                     setPriceRange(550);
                     setSortBy("");
@@ -162,44 +129,6 @@ export default function ProductListingPage() {
               <br />
               <br />
 
-              <h5>Category</h5>
-              <label for="men">
-                <input
-                  type="checkbox"
-                  name="category"
-                  value="Men"
-                  id="men"
-                  onChange={handleCategoryChange}
-                  checked={selectedCategory.includes("Men")}
-                />{" "}
-                Men Clothing
-              </label>
-              <br />
-              <label for="women">
-                <input
-                  type="checkbox"
-                  name="category"
-                  value="Women"
-                  id="women"
-                  onChange={handleCategoryChange}
-                  checked={selectedCategory.includes("Women")}
-                />{" "}
-                Women Clothing
-              </label>
-              <br />
-              <label for="kids">
-                <input
-                  type="checkbox"
-                  name="category"
-                  value="Kids"
-                  id="kids"
-                  onChange={handleCategoryChange}
-                  checked={selectedCategory.includes("Kids")}
-                />{" "}
-                Kids Clothing
-              </label>
-              <br />
-              <br />
               <h5>Rating</h5>
               <label for="4Stars">
                 <input
@@ -286,10 +215,13 @@ export default function ProductListingPage() {
                   </span>
                 </small>
               </h5>
-              <p>
-                <i>Find your perfect style match right here!🥰</i>
-              </p>
-              <hr />
+ <i>
+    {category === 'Women'
+      ? 'Hey Women, your style deserves to turn heads everywhere you go!🦋'
+      : category === 'Kids'
+      ? 'Kids, get ready to shine bright with colors as playful as you are!🌈'
+      : 'Men, step up your game with styles that match your confidence.👑'}
+  </i>            <hr />
 
               <div className="row">
                 {filteredOutfits.map((outfit) => (
@@ -354,16 +286,9 @@ export default function ProductListingPage() {
             </div>
           </div>
         ) : (
-          <>
-            {loading && (
-              <p className="alert alert-primary">Loading Products List...</p>
-            )}
-            {error && (
-              <p className="alert alert-danger">
-                Error loading products: {error}
-              </p>
-            )}
-          </>
+          <p className="alert alert-primary" role="alert">
+            Loading Products List...
+          </p>
         )}
       </main>
       <Footer />
