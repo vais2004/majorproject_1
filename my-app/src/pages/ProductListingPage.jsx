@@ -16,21 +16,6 @@ export default function ProductListingPage() {
   //const [outfits, setOutfits] = useState([]);
   const { outfitId } = useParams();
 
-  // useEffect(() => {
-  //   const fetchOutfits = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "https://mystylespot-backend.onrender.com/outfit"
-  //       );
-  //       console.log("data", response.data);
-  //       setOutfits(response.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchOutfits();
-  // }, []);
-
   const {
     data: outfits,
     loading,
@@ -324,18 +309,6 @@ export default function ProductListingPage() {
                         <hr />
                         <h6>{outfit.title}</h6>
                         <h5>₹ {outfit.price}</h5>
-                        {/* <div className="btn-center">
-          <button className="btn btn-primary btn-sm">Add to Cart</button>
-          <br/>
-          <br/>
-          <button className="btn btn-outline-secondary btn-sm">Remove from Cart</button>
-        </div> */}
-                        {/* <div className="d-grid gap-2 ">
-            <button className="btn btn-outline-primary" type="button">Add to Cart</button>
-            <button className="btn btn-outline-secondary" type="button">Remove from Cart</button>
-           </div> */}
-
-                        {/*modify button */}
 
                         <div className="d-grid gap-2">
                           <button

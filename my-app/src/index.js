@@ -12,7 +12,7 @@ import ProductDetails from "./pages/ProductDetails";
 import WishlistPage from "./pages/Wishlist";
 import ProductByCategory from "./pages/ProductByCategory";
 import PlaceOrder from "./pages/PlaceOrder";
-//import reportWebVitals from './reportWebVitals';
+
 import { store } from "./app/store";
 
 const router = createBrowserRouter([
@@ -34,7 +34,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-//reportWebVitals();

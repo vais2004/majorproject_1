@@ -215,14 +215,14 @@ export default function ProductByCategory() {
                   </span>
                 </small>
               </h5>
- <i>
-    {category === 'Women'
-      ? 'Hey Women, your style deserves to turn heads everywhere you go!🦋'
-      : category === 'Kids'
-      ? 'Kids, get ready to shine bright with colors as playful as you are!🌈'
-      : 'Men, step up your game with styles that match your confidence.👑'}
-  </i>            <hr />
-
+              <i>
+                {category === "Women"
+                  ? "Hey Women, your style deserves to turn heads everywhere you go!🦋"
+                  : category === "Kids"
+                  ? "Kids, get ready to shine bright with colors as playful as you are!🌈"
+                  : "Men, step up your game with styles that match your confidence.👑"}
+              </i>{" "}
+              <hr />
               <div className="row">
                 {filteredOutfits.map((outfit) => (
                   <div className="col-md-3 mb-1" key={outfit._id}>
@@ -256,18 +256,6 @@ export default function ProductByCategory() {
                         <hr />
                         <h6>{outfit.title}</h6>
                         <h5>₹ {outfit.price}</h5>
-                        {/* <div className="btn-center">
-          <button className="btn btn-primary btn-sm">Add to Cart</button>
-          <br/>
-          <br/>
-          <button className="btn btn-outline-secondary btn-sm">Remove from Cart</button>
-        </div> */}
-                        {/* <div className="d-grid gap-2 ">
-            <button className="btn btn-outline-primary" type="button">Add to Cart</button>
-            <button className="btn btn-outline-secondary" type="button">Remove from Cart</button>
-           </div> */}
-
-                        {/*modify button */}
 
                         <div className="d-grid gap-2">
                           <button

@@ -8,7 +8,7 @@ export default function PlaceOrder() {
     mobile: "",
     house: "",
     area: "",
-    street: "",
+    town: "",
     landmark: "",
     pincode: "",
     state: "",
@@ -26,9 +26,8 @@ export default function PlaceOrder() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // For now, just simulate order placement
+  const handleSubmit = (event) => {
+    event.preventDefault();
     setOrderPlaced(true);
   };
 
@@ -60,7 +59,7 @@ export default function PlaceOrder() {
             <input
               type="text"
               name="fullName"
-              placeholder="Full Name"
+              placeholder="Full Name (First and Last name)"
               value={formData.fullName}
               onChange={handleChange}
               className="form-control"
@@ -82,7 +81,7 @@ export default function PlaceOrder() {
             <input
               type="text"
               name="house"
-              placeholder="Flat / House No."
+              placeholder="Flat, House No., Building, Company, Apartment"
               value={formData.house}
               onChange={handleChange}
               className="form-control"
@@ -93,21 +92,11 @@ export default function PlaceOrder() {
             <input
               type="text"
               name="area"
-              placeholder="Area"
+              placeholder="Area, Street, Sector, Village"
               value={formData.area}
               onChange={handleChange}
               className="form-control"
               required
-            />
-          </div>
-          <div className="col-md-6">
-            <input
-              type="text"
-              name="street"
-              placeholder="Street Name"
-              value={formData.street}
-              onChange={handleChange}
-              className="form-control"
             />
           </div>
           <div className="col-md-6">
@@ -132,6 +121,17 @@ export default function PlaceOrder() {
             />
           </div>
           <div className="col-md-6">
+            <input
+              type="text"
+              name="town"
+              placeholder="Town/City"
+              value={formData.town}
+              onChange={handleChange}
+              className="form-control"
+              required
+            />
+          </div>
+          <div className="col-md-6">
             <select
               name="state"
               value={formData.state}
@@ -144,7 +144,6 @@ export default function PlaceOrder() {
               <option value="Karnataka">Karnataka</option>
               <option value="Tamil Nadu">Tamil Nadu</option>
               <option value="West Bengal">West Bengal</option>
-              {/* Add more states as needed */}
             </select>
           </div>
           <div className="col-12">
