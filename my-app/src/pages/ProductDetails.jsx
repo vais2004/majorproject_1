@@ -1,5 +1,3 @@
-
-
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { useEffect, useState } from "react";
@@ -79,45 +77,50 @@ export default function ProductDetails() {
               <div className="row">
                 <div className="col-md-4">
                   <div
-                    className="d-flex justify-content-center align-items-center bg-white rounded border"
-                    style={{ height: "300px", overflow: "hidden" }}>
-                    <img
-                      src={outfit.imgUrl}
-                      className="img-fluid"
-                      alt={`Image of ${outfit.title}`}
-                      style={{
-                        maxHeight: "100%",
-                        maxWidth: "100%",
-                        objectFit: "contain",
-                        cursor: "pointer",
-                      }}
-                    />
-                    <button
-                      onClick={() => handleAddToWishlist(outfit)}
-                      className="position-absolute top-0 end-0 m-1 fs-5"
-                      style={{
-                        background: "white",
-                        width: "35px",
-                        height: "35px",
-                        borderRadius: "50%",
-                        border: "1px solid lightgray",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        padding: 0,
-                        cursor: "pointer",
-                      }}
-                      aria-label="Toggle Wishlist">
-                      {wishlistItems.some((item) => item._id === outfit._id)
-                        ? "❤️"
-                        : "🤍"}
-                    </button>
-                  </div>
+  className="position-relative d-flex justify-content-center align-items-center bg-white rounded"
+  style={{ height: "300px", overflow: "hidden" }}
+>
+  <img
+    src={outfit.imgUrl}
+    className="img-fluid"
+    alt={outfit.title}
+    style={{
+      maxHeight: "100%",
+      maxWidth: "100%",
+      objectFit: "contain",
+      cursor: "pointer",
+    }}
+  />
+  <button
+    onClick={() => handleAddToWishlist(outfit)}
+    className="position-absolute top-0 end-0 m-1 me-5 fs-5 shadow-sm"
+    style={{
+      
+      background: "white",
+      width: "35px",
+      height: "35px",
+      borderRadius: "50%",
+      border: "1px solid lightgray",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: 0,
+      cursor: "pointer",
+    }}
+    aria-label="Toggle Wishlist"
+  >
+    {wishlistItems.some((item) => item._id === outfit._id) ? "❤️" : "🤍"}
+  </button>
+</div>
 
                   <div className="d-grid gap-2 col-8 mx-auto mt-4">
                     <button
                       onClick={() => handleToggleCart(outfit)}
-                      className="btn btn-outline-primary">
+                      className={`btn mt-auto ${
+                        cartItems.some((item) => item._id === outfit._id)
+                          ? "btn-outline-danger"
+                          : "btn-outline-primary"
+                      }`}>
                       {cartItems.some((item) => item._id === outfit._id)
                         ? "Remove from Cart"
                         : "Add to Cart"}
@@ -127,11 +130,34 @@ export default function ProductDetails() {
 
                 <div className="col-md-7 py-2">
                   <h3>{outfit.title}</h3>
-                  <p>Rating: {renderStars(outfit.rating)}</p>
-                  <p>Price: ₹{outfit.price}</p>
-                  <p>50% off</p>
-                  <p>Size: {outfit.size}</p>
-                  <p>Quantity: 1</p>
+                  <p>
+                    <b>Rating:</b>{" "}
+                    <span className="fs-4">{renderStars(outfit.rating)}</span>
+                  </p>
+                  <p>
+                    <b>Price:</b> ₹{outfit.price}
+                  </p>
+                  <p className="text-muted">50% off</p>
+                  <p>
+                    <b>Available Sizes:</b>
+                  </p>
+                  <div className="d-flex gap-2">
+                    {["S", "M", "L", "XL", "XXL"].map((s) => (
+                      <span
+                        key={s}
+                        className={`badge rounded-pill px-3 py-2 fs-6 me-2 ${
+                          outfit.size === s
+                            ? "text-bg-secondary border "
+                            : "text-bg-light border border-secondary text-muted"
+                        }`}>
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                  <br />
+                  <p>
+                    <b>Quantity:</b> 1
+                  </p>
 
                   <hr />
 

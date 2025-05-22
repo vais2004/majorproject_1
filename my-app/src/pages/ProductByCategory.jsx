@@ -1,5 +1,3 @@
-
-
 import useFetch from "../useFetch";
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
@@ -8,14 +6,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  fetchCartItems,
-  addToCartAsync,
-  removeFromCartAsync,
-  updateQuantityAsync,
-} from "../features/cartActions"; // <-- Import thunks from cartActions.js
 
-//import { addToCartAsync, removeFromCartAsync } from "../features/cartReducer";
+import { addToCart, removeFromCart } from "../features/cartReducer";
 import { addToWishlist, removeFromWishlist } from "../features/wishlistReducer";
 
 export default function ProductByCategory() {
@@ -90,9 +82,9 @@ export default function ProductByCategory() {
   const handleToggleCart = (outfit) => {
     const isPresentInCart = cartItems.some((item) => item._id === outfit._id);
     if (isPresentInCart) {
-      dispatch(removeFromCartAsync(outfit._id));
+      dispatch(removeFromCart(outfit._id));
     } else {
-      dispatch(addToCartAsync({ ...outfit, quantity: 1 }));
+      dispatch(addToCart({ ...outfit, quantity: 1 }));
     }
   };
 
@@ -111,8 +103,7 @@ export default function ProductByCategory() {
                     setSelectedRating(null);
                     setPriceRange(550);
                     setSortBy("");
-                  }}
-                >
+                  }}>
                   Clear Filters
                 </button>
               </div>
@@ -242,13 +233,11 @@ export default function ProductByCategory() {
                   {filteredOutfits.map((outfit) => (
                     <div
                       key={outfit._id}
-                      className="col-12 col-sm-6 col-md-4 col-lg-3"
-                    >
+                      className="col-12 col-sm-6 col-md-4 col-lg-3">
                       <div className="card h-100 d-flex flex-column">
                         <div
                           className="d-flex justify-content-center align-items-center"
-                          style={{ height: "250px", overflow: "hidden" }}
-                        >
+                          style={{ height: "250px", overflow: "hidden" }}>
                           <img
                             src={outfit.imgUrl}
                             alt={outfit.title}
@@ -274,17 +263,19 @@ export default function ProductByCategory() {
                               alignItems: "center",
                               justifyContent: "center",
                               borderColor: "lightgray",
-                            }}
-                          >
-                            {wishlistItems.some((item) => item._id === outfit._id)
+                            }}>
+                            {wishlistItems.some(
+                              (item) => item._id === outfit._id
+                            )
                               ? "❤️"
                               : "🤍"}
                           </button>
                         </div>
                         <div className="card-body text-center d-flex flex-column">
-                          {/* rest of the card content */}
                           <h6 className="card-title">{outfit.title}</h6>
-                          <p className="card-text fw-bold mb-3">₹ {outfit.price}</p>
+                          <p className="card-text fw-bold mb-3">
+                            ₹ {outfit.price}
+                          </p>
 
                           <button
                             onClick={() => handleToggleCart(outfit)}
@@ -292,8 +283,7 @@ export default function ProductByCategory() {
                               cartItems.some((item) => item._id === outfit._id)
                                 ? "btn-outline-danger"
                                 : "btn-outline-primary"
-                            }`}
-                          >
+                            }`}>
                             {cartItems.some((item) => item._id === outfit._id)
                               ? "Remove from Cart"
                               : "Add to Cart"}
@@ -316,4 +306,3 @@ export default function ProductByCategory() {
     </>
   );
 }
-
