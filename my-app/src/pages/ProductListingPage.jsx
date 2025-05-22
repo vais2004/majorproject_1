@@ -93,15 +93,15 @@ export default function ProductListingPage() {
   //   }
   // };
 
-const handleToggleCart = (outfit) => {
-  const isPresent = cartItems.some((item) => item._id === outfit._id);
+  const handleToggleCart = (outfit) => {
+    const isPresent = cartItems.some((item) => item._id === outfit._id);
 
-  if (isPresent) {
-    dispatch(removeFromCart(outfit._id));
-  } else {
-    dispatch(addToCart(outfit));
-  }
-};
+    if (isPresent) {
+      dispatch(removeFromCart(outfit._id));
+    } else {
+      dispatch(addToCart(outfit));
+    }
+  };
 
   return (
     <>
@@ -124,7 +124,7 @@ const handleToggleCart = (outfit) => {
                   Clear Filters
                 </button>
               </div>
-
+              <br />
               <br />
               <h5>Price</h5>
               <div className="d-flex justify-content-between ">
@@ -141,7 +141,7 @@ const handleToggleCart = (outfit) => {
                 value={priceRange}
                 onChange={handlePriceChange}
               />
-
+              <br />
               <br />
               <h5>Category</h5>
               <label htmlFor="men">
@@ -177,6 +177,7 @@ const handleToggleCart = (outfit) => {
                 Kids Clothing
               </label>
 
+              <br />
               <br />
               <h5>Rating</h5>
               <label for="4Stars">
@@ -229,7 +230,6 @@ const handleToggleCart = (outfit) => {
               <br />
               <br />
 
-              <br />
               <h5>Sort by</h5>
               <label htmlFor="lowToHigh">
                 <input
