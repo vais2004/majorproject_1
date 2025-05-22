@@ -18,7 +18,7 @@ export default function WishlistPage() {
   // );
 
   const [message, setMessage] = useState("");
-  
+  const [loading, setLoading] = useState(false);
   // const handleRemoveFromWishlist = (productId) => {
   //   dispatch(removeFromWishlist(productId));
   //   setMessage("Product removed from wishlist...!");
@@ -65,6 +65,11 @@ export default function WishlistPage() {
 </h5>
         ) : (<>
           <h5 className="py-4"><i>Looks like you’ve got great taste—these picks are 🔥!</i></h5>
+{loading && (
+              <p className="alert alert-primary" role="alert">
+                Loading products...
+              </p>
+            )}
           <div className="row">
             {wishlistItems.map((outfit) => (
               <div className="col-md-4">

@@ -2,19 +2,14 @@ import useFetch from "../useFetch";
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../features/cartReducer";
 import { addToWishlist, removeFromWishlist } from "../features/wishlistReducer";
-//import { handleAddToWishlist,handleToggleCart } from "./ButtonAction";
 
+import axios from "axios";
 export default function ProductListingPage() {
   const navigate = useNavigate();
-
-  //const [outfits, setOutfits] = useState([]);
-  const { outfitId } = useParams();
 
   const {
     data: outfits,
@@ -22,21 +17,20 @@ export default function ProductListingPage() {
     error,
   } = useFetch("https://mystylespot-backend.onrender.com/outfit", []);
 
-  const [filters, setFilters] = useState({
-    priceRange: 550,
-    categories: [],
-    rating: null,
-    sortBy: "",
-  });
-
-  //for search
-  const searchText = useSelector((state) => state.search.text.toLowerCase());
-
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectRating, setSelectedRating] = useState(null);
   const [priceRange, setPriceRange] = useState(550);
   const [sortBy, setSortBy] = useState("");
 
+  // For search filter from Redux
+  const searchText = useSelector((state) => state.search.text.toLowerCase());
+
+  // Redux dispatch and selectors
+  const dispatch = useDispatch();
+  const wishlistItems = useSelector((state) => state.wishlist.wishlistItems);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+
+  // Filtering the outfits based on filters
   let filteredOutfits = outfits.filter((outfit) => {
     const matchesCategory =
       selectedCategory.length === 0 ||
@@ -52,12 +46,14 @@ export default function ProductListingPage() {
     return matchesCategory && matchesRating && matchesPrice && matchesSearch;
   });
 
+  // Sorting
   if (sortBy === "Price-Low To High") {
     filteredOutfits = filteredOutfits.sort((a, b) => a.price - b.price);
   } else if (sortBy === "Price-High To Low") {
     filteredOutfits = filteredOutfits.sort((a, b) => b.price - a.price);
   }
 
+  // Handlers for filter inputs
   const handleCategoryChange = (e) => {
     const { value, checked } = e.target;
     setSelectedCategory((prev) =>
@@ -77,33 +73,35 @@ export default function ProductListingPage() {
     setSortBy(e.target.value);
   };
 
-  const dispatch = useDispatch();
-  //for wishlist
-  const wishlistItems = useSelector((state) => state.wishlist.wishlistItems);
-
+  // Wishlist toggle
   const handleAddToWishlist = (outfit) => {
-    const isPresentInWishlist = wishlistItems.some(
-      (item) => item._id === outfit._id
-    );
-    if (isPresentInWishlist) {
+    const isPresent = wishlistItems.some((item) => item._id === outfit._id);
+    if (isPresent) {
       dispatch(removeFromWishlist(outfit._id));
     } else {
       dispatch(addToWishlist(outfit));
     }
   };
 
-  //cart
+  // // Cart toggle
+  // const handleToggleCart = (outfit) => {
+  //   const isPresent = cartItems.some((item) => item._id === outfit._id);
+  //   if (isPresent) {
+  //     dispatch(removeFromCart(outfit._id));
+  //   } else {
+  //     dispatch(addToCart(outfit));
+  //   }
+  // };
 
-  const cartItems = useSelector((state) => state.cart.cartItems);
+const handleToggleCart = (outfit) => {
+  const isPresent = cartItems.some((item) => item._id === outfit._id);
 
-  const handleToggleCart = (outfit) => {
-    const isPresentInCart = cartItems.some((item) => item._id === outfit._id);
-    if (isPresentInCart) {
-      dispatch(removeFromCart(outfit._id));
-    } else {
-      dispatch(addToCart({ ...outfit, quantity: 1 }));
-    }
-  };
+  if (isPresent) {
+    dispatch(removeFromCart(outfit._id));
+  } else {
+    dispatch(addToCart(outfit));
+  }
+};
 
   return (
     <>
@@ -111,6 +109,7 @@ export default function ProductListingPage() {
       <main className="container-fluid py-3">
         {outfits ? (
           <div className="row">
+            {/* Filters column */}
             <div className="col-md-3">
               <div className="d-flex justify-content-between">
                 <h5>Filters</h5>
@@ -125,11 +124,10 @@ export default function ProductListingPage() {
                   Clear Filters
                 </button>
               </div>
-              <br />
+
               <br />
               <h5>Price</h5>
-
-              <div className="d-flex justify-content-between">
+              <div className="d-flex justify-content-between ">
                 <span>350</span>
                 <span>450</span>
                 <span>550</span>
@@ -137,21 +135,18 @@ export default function ProductListingPage() {
               <input
                 type="range"
                 className="form-range"
-                id="priceSlider"
                 min="350"
                 max="550"
                 step="100"
                 value={priceRange}
                 onChange={handlePriceChange}
               />
-              <br />
-              <br />
 
+              <br />
               <h5>Category</h5>
-              <label for="men">
+              <label htmlFor="men">
                 <input
                   type="checkbox"
-                  name="category"
                   value="Men"
                   id="men"
                   onChange={handleCategoryChange}
@@ -160,10 +155,9 @@ export default function ProductListingPage() {
                 Men Clothing
               </label>
               <br />
-              <label for="women">
+              <label htmlFor="women">
                 <input
                   type="checkbox"
-                  name="category"
                   value="Women"
                   id="women"
                   onChange={handleCategoryChange}
@@ -172,10 +166,9 @@ export default function ProductListingPage() {
                 Women Clothing
               </label>
               <br />
-              <label for="kids">
+              <label htmlFor="kids">
                 <input
                   type="checkbox"
-                  name="category"
                   value="Kids"
                   id="kids"
                   onChange={handleCategoryChange}
@@ -183,7 +176,7 @@ export default function ProductListingPage() {
                 />{" "}
                 Kids Clothing
               </label>
-              <br />
+
               <br />
               <h5>Rating</h5>
               <label for="4Stars">
@@ -235,8 +228,10 @@ export default function ProductListingPage() {
               </label>
               <br />
               <br />
+
+              <br />
               <h5>Sort by</h5>
-              <label for="lowToHigh">
+              <label htmlFor="lowToHigh">
                 <input
                   type="radio"
                   name="sortBy"
@@ -248,7 +243,7 @@ export default function ProductListingPage() {
                 Price-Low To High
               </label>
               <br />
-              <label for="highToLow">
+              <label htmlFor="highToLow">
                 <input
                   type="radio"
                   name="sortBy"
@@ -261,68 +256,87 @@ export default function ProductListingPage() {
               </label>
             </div>
 
+            {/* Products column */}
             <div className="col-md-9 bg-light py-4 px-4">
               <h5>
                 Showing All Products{" "}
-                <small>
-                  <span>
-                    {" "}
-                    <small>(Showing {filteredOutfits.length} products) </small>
-                  </span>
-                </small>
+                <small>(Showing {filteredOutfits.length} products)</small>
               </h5>
               <p>
                 <i>Find your perfect style match right here!🥰</i>
               </p>
               <hr />
+              {loading && (
+                <p className="alert alert-primary" role="alert">
+                  Loading products...
+                </p>
+              )}
+              <div className="container">
+                <div className="row g-3">
+                  {filteredOutfits.map((outfit) => (
+                    <div
+                      key={outfit._id}
+                      className="col-12 col-sm-6 col-md-4 col-lg-3">
+                      <div className="card h-100 d-flex flex-column">
+                        <div
+                          className="d-flex justify-content-center align-items-center"
+                          style={{ height: "250px", overflow: "hidden" }}>
+                          <img
+                            src={outfit.imgUrl}
+                            alt={outfit.title}
+                            className="img-fluid"
+                            style={{
+                              objectFit: "contain",
+                              maxHeight: "100%",
+                              maxWidth: "100%",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => navigate(`/details/${outfit._id}`)}
+                          />
+                          <button
+                            onClick={() => handleAddToWishlist(outfit)}
+                            className="position-absolute top-0 end-0 m-1 fs-4"
+                            style={{
+                              background: "none",
+                              width: "35px",
+                              height: "35px",
+                              borderRadius: "50%",
+                              border: "1px solid",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              borderColor: "lightgray",
+                            }}>
+                            {wishlistItems.some(
+                              (item) => item._id === outfit._id
+                            )
+                              ? "❤️"
+                              : "🤍"}
+                          </button>
+                        </div>
+                        <div className="card-body text-center d-flex flex-column">
+                          {/* rest of the card content */}
+                          <h6 className="card-title">{outfit.title}</h6>
+                          <p className="card-text fw-bold mb-3">
+                            ₹ {outfit.price}
+                          </p>
 
-              <div className="row">
-                {filteredOutfits.map((outfit) => (
-                  <div className="col-md-3 mb-1" key={outfit._id}>
-                    <div className="card text-center">
-                      <img
-                        src={outfit.imgUrl}
-                        className="card-img-top"
-                        alt={outfit.title}
-                        style={{ height: "275px", width: "250px" }}
-                        onClick={() => navigate(`/details/${outfit._id}`)}
-                      />
-                      <button
-                        onClick={() => handleAddToWishlist(outfit)}
-                        className="position-absolute top-0 end-0 m-1 fs-4"
-                        style={{
-                          background: "none",
-                          width: "35px",
-                          height: "35px",
-                          borderRadius: "50%",
-                          border: "1px solid",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          borderColor: "lightgray",
-                        }}>
-                        {wishlistItems.some((item) => item._id === outfit._id)
-                          ? "❤️"
-                          : "🤍"}
-                      </button>
-                      <div className="card-body">
-                        <hr />
-                        <h6>{outfit.title}</h6>
-                        <h5>₹ {outfit.price}</h5>
-
-                        <div className="d-grid gap-2">
                           <button
                             onClick={() => handleToggleCart(outfit)}
-                            className="btn btn-outline-primary">
+                            className={`btn mt-auto ${
+                              cartItems.some((item) => item._id === outfit._id)
+                                ? "btn-outline-danger"
+                                : "btn-outline-primary"
+                            }`}>
                             {cartItems.some((item) => item._id === outfit._id)
-                              ? " Remove from Cart"
+                              ? "Remove from Cart"
                               : "Add to Cart"}
                           </button>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
