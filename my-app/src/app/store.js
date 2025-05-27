@@ -11,9 +11,6 @@
 //   },
 // });
 
-
-
-
 // import { configureStore } from "@reduxjs/toolkit";
 // import cartReducer from "../features/cartReducer";
 // import wishlistReducer from "../features/wishlistReducer";
@@ -52,20 +49,22 @@ import cartReducer from "../features/cartReducer";
 import wishlistReducer from "../features/wishlistReducer";
 import searchReducer from "../features/searchSlice";
 
-import storage from 'redux-persist/lib/storage';
-import { persistReducer, persistStore } from 'redux-persist';
+import storage from "redux-persist/lib/storage";
+import { persistReducer, persistStore } from "redux-persist";
 import { combineReducers } from "redux";
 import userReducer from "../features/userReducer";
+import authenticationReducer from "../features/authenticationSlice";
 
 const rootReducer = combineReducers({
   cart: cartReducer,
   wishlist: wishlistReducer,
   search: searchReducer,
-  user:userReducer,
+  user: userReducer,
+  auth: authenticationReducer,
 });
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
 };
 
@@ -80,4 +79,3 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-

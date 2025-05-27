@@ -8,6 +8,8 @@ import { addToCart, removeFromCart } from "../features/cartReducer";
 import { addToWishlist, removeFromWishlist } from "../features/wishlistReducer";
 
 import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from "react-toastify";
 export default function ProductListingPage() {
   const navigate = useNavigate();
 
@@ -78,8 +80,10 @@ export default function ProductListingPage() {
     const isPresent = wishlistItems.some((item) => item._id === outfit._id);
     if (isPresent) {
       dispatch(removeFromWishlist(outfit._id));
+      toast.error('Removed from wishlist')
     } else {
       dispatch(addToWishlist(outfit));
+      toast.success('Added to wishlist')
     }
   };
 
@@ -98,14 +102,17 @@ export default function ProductListingPage() {
 
     if (isPresent) {
       dispatch(removeFromCart(outfit._id));
+      toast.error('Removed from cart')
     } else {
       dispatch(addToCart(outfit));
+      toast.success('Added to cart')
     }
   };
 
   return (
     <>
       <Header />
+      <ToastContainer position="top-right" className='mt-5' autoClose={3000} />
       <main className="container-fluid py-3">
         {outfits ? (
           <div className="row">

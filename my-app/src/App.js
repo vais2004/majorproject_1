@@ -1,14 +1,13 @@
-
 import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+//import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { useNavigate } from "react-router-dom";
 import ProductByCategory from "./pages/ProductByCategory";
-
 
 export default function App() {
   const navigate = useNavigate();
@@ -16,39 +15,43 @@ export default function App() {
   return (
     <>
       <Header />
+
       <main className="container pt-3">
         <div className="row justify-content-center text-center">
           {/* Category Cards */}
           {["Men", "Women", "Kids"].map((category, i) => {
             const imgSrcs = {
               Men: "https://cdn1.iconfinder.com/data/icons/user-pictures/100/male3-256.png",
-              Women: "https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-256.png",
+              Women:
+                "https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-256.png",
               Kids: "https://cdn1.iconfinder.com/data/icons/user-pictures/100/girl-512.png",
             };
 
             return (
               <div
-  key={category}
-  className="col-6 col-sm-4 col-md-4 mb-3 d-flex justify-content-center"
->
-  <div
-    className="bg-light p-3 rounded d-flex flex-column align-items-center"
-    style={{ cursor: "pointer", maxWidth: "150px", width: "100%" }}
-    onClick={() => navigate(`/outfits/${category}`)}
-  >
-    <img
-      src={imgSrcs[category]}
-      alt={`${category} category`}
-      className="img-fluid"
-      style={{ width: "100%", height: "auto" }}
-    />
-    <div>
-      <span className="badge text-bg-secondary px-2 py-2 fs-6 d-block mt-2">
-        {category}
-      </span>
-    </div>
-  </div>
-</div>
+                key={category}
+                className="col-6 col-sm-4 col-md-4 mb-3 d-flex justify-content-center">
+                <div
+                  className="bg-light p-3 rounded d-flex flex-column align-items-center"
+                  style={{
+                    cursor: "pointer",
+                    maxWidth: "150px",
+                    width: "100%",
+                  }}
+                  onClick={() => navigate(`/outfits/${category}`)}>
+                  <img
+                    src={imgSrcs[category]}
+                    alt={`${category} category`}
+                    className="img-fluid"
+                    style={{ width: "100%", height: "auto" }}
+                  />
+                  <div>
+                    <span className="badge text-bg-secondary px-2 py-2 fs-6 d-block mt-2">
+                      {category}
+                    </span>
+                  </div>
+                </div>
+              </div>
             );
           })}
         </div>
@@ -77,13 +80,16 @@ export default function App() {
               ].map(({ src, captionTitle, captionText }, idx) => (
                 <div
                   key={idx}
-                  className={`carousel-item${idx === 0 ? " active" : ""}`}
-                >
+                  className={`carousel-item${idx === 0 ? " active" : ""}`}>
                   <img
                     src={src}
                     className="d-block w-100 img-fluid"
                     alt={`Slide ${idx + 1}`}
-                    style={{ maxHeight: "550px", objectFit: "cover", cursor: "pointer" }}
+                    style={{
+                      maxHeight: "550px",
+                      objectFit: "cover",
+                      cursor: "pointer",
+                    }}
                     onClick={() => navigate("/products")}
                   />
                   {(captionTitle || captionText) && (
@@ -99,24 +105,20 @@ export default function App() {
               className="carousel-control-prev"
               type="button"
               data-bs-target="#carouselExample"
-              data-bs-slide="prev"
-            >
+              data-bs-slide="prev">
               <span
                 className="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
+                aria-hidden="true"></span>
               <span className="visually-hidden">Previous</span>
             </button>
             <button
               className="carousel-control-next"
               type="button"
               data-bs-target="#carouselExample"
-              data-bs-slide="next"
-            >
+              data-bs-slide="next">
               <span
                 className="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
+                aria-hidden="true"></span>
               <span className="visually-hidden">Next</span>
             </button>
           </div>
@@ -153,4 +155,3 @@ export default function App() {
     </>
   );
 }
-

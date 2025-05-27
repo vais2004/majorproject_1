@@ -66,4 +66,4 @@ export const updateQuantity = (productId, quantity) => ({
   payload: { _id: productId, quantity },
 });
 
-export default cartReducer;
+export default cartReducer; 

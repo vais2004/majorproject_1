@@ -1,31 +1,23 @@
+// src/features/userReducer.js
 const initialState = {
   userInfo: null,
 };
 
+export const signup = (user) => ({ type: "SIGNUP", payload: user });
+export const login = (user) => ({ type: "LOGIN", payload: user });
+export const logout = () => ({ type: "LOGOUT" });
+
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SIGNUP":
-      return { userInfo: action.payload };
+      return { ...state, userInfo: action.payload };
     case "LOGIN":
-      return { userInfo: action.payload };
+      return { ...state, userInfo: action.payload };
     case "LOGOUT":
-      return { userInfo: null };
+      return { ...state, userInfo: null };
     default:
       return state;
   }
 };
 
 export default userReducer;
-
-export const signup = (data) => ({
-  type: "SIGNUP",
-  payload: data,
-});
-export const login = (data) => ({
-  type: "LOGIN",
-  payload: data,
-});
-
-export const logout = () => ({
-  type: "LOGOUT",
-});
