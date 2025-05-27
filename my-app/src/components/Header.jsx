@@ -94,7 +94,9 @@ const Navbar = () => {
                   {totalCartQuantity}
                 </span>
               </Link>
-              <Link to="/orders" className="nav-link pe-2 px-5 position-relative">
+              <Link
+                to="/orders"
+                className="nav-link pe-2 px-5 position-relative">
                 Your Orders <i class="bi bi-bag"></i>
               </Link>
             </div>

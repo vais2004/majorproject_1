@@ -9,7 +9,7 @@ const cartReducer = (state = initialState, action) => {
         (item) => item._id === action.payload._id
       );
       if (existingProductIndex >= 0) {
-        // If product already exists, update quantity
+        // if item already exists then update quantity
         const updatedCartItems = state.cartItems.map((item, index) =>
           index === existingProductIndex
             ? { ...item, quantity: item.quantity + 1 }
@@ -20,7 +20,7 @@ const cartReducer = (state = initialState, action) => {
           cartItems: updatedCartItems,
         };
       } else {
-        // If product doesn't exist, add it to cart with quantity 1
+        // if outfit doesn't exist then add it to cart with quantity 1
         return {
           ...state,
           cartItems: [...state.cartItems, { ...action.payload, quantity: 1 }],
@@ -28,14 +28,16 @@ const cartReducer = (state = initialState, action) => {
       }
 
     case "REMOVE_FROM_CART":
-      // Remove item from cart by its ID
+      // remove item from cart by its id
       return {
         ...state,
-        cartItems: state.cartItems.filter((item) => item._id !== action.payload),
+        cartItems: state.cartItems.filter(
+          (item) => item._id !== action.payload
+        ),
       };
 
     case "UPDATE_QUANTITY":
-      // Update quantity of specific item in cart
+      // update quantity of specific item in cart
       return {
         ...state,
         cartItems: state.cartItems.map((item) =>
@@ -50,7 +52,7 @@ const cartReducer = (state = initialState, action) => {
   }
 };
 
-// Action Creators
+// Actions
 export const addToCart = (product) => ({
   type: "ADD_TO_CART",
   payload: product,
@@ -66,4 +68,4 @@ export const updateQuantity = (productId, quantity) => ({
   payload: { _id: productId, quantity },
 });
 
-export default cartReducer; 
+export default cartReducer;

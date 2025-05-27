@@ -80,10 +80,10 @@ export default function ProductListingPage() {
     const isPresent = wishlistItems.some((item) => item._id === outfit._id);
     if (isPresent) {
       dispatch(removeFromWishlist(outfit._id));
-      toast.error('Removed from wishlist')
+      toast.error(`Removed "${outfit.title}" from wishlist.`);
     } else {
       dispatch(addToWishlist(outfit));
-      toast.success('Added to wishlist')
+      toast.success(`Added "${outfit.title}" to wishlist! ❤️`);
     }
   };
 
@@ -102,17 +102,17 @@ export default function ProductListingPage() {
 
     if (isPresent) {
       dispatch(removeFromCart(outfit._id));
-      toast.error('Removed from cart')
+      toast.error(`Removed "${outfit.title}" from cart.`);
     } else {
-      dispatch(addToCart(outfit));
-      toast.success('Added to cart')
+      dispatch(addToCart({ ...outfit, quantity: 1 }));
+      toast.success(`Added "${outfit.title}" to cart! 🛒`);
     }
   };
 
   return (
     <>
       <Header />
-      <ToastContainer position="top-right" className='mt-5' autoClose={3000} />
+      <ToastContainer position="top-right" className="mt-5" autoClose={3000} />
       <main className="container-fluid py-3">
         {outfits ? (
           <div className="row">

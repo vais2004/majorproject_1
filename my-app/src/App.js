@@ -1,13 +1,10 @@
-import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-//import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { useNavigate } from "react-router-dom";
-import ProductByCategory from "./pages/ProductByCategory";
 
 export default function App() {
   const navigate = useNavigate();
