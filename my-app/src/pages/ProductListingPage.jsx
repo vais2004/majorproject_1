@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../features/cartReducer";
 import { addToWishlist, removeFromWishlist } from "../features/wishlistReducer";
 
-import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 export default function ProductListingPage() {
