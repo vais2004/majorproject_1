@@ -3,6 +3,14 @@
 MyStyleSpot is a fully responsive ecommerce website.  
 It's built using **HTML**, **CSS**, and **JavaScript**.
 
+##### Hosted Link: (https://ecom-project-jade.vercel.app/)
+ 
+##### Backend code URL: (https://github.com/vais2004/mystylespot-backend)
+
+##### Frontend code URL: (https://github.com/vais2004/ecom-project)
+
+##### Walkthrough Video: (https://drive.google.com/file/d/1dLV_pJp6UC_zmz6gs_tqFNFy5DoIH4RW/view?usp=drive_link)
+
 ---
 
 ## ✨ Pages:
